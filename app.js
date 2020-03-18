@@ -1,15 +1,82 @@
    // Initial array of cities
-   var cities = ["Austin", "Chicago", "New York", "Orlando", "San Francisco", "Seattle", "Denver", "Atlanta"];
+//    var cities = ["Austin", "Chicago", "New York", "Orlando", "San Francisco", "Seattle", "Denver", "Atlanta"];
 
+   var list = JSON.parse(localStorage.getItem("cities"));
+
+   //if list is not in local storage, list is set to an empty array
+   if (!Array.isArray(list)) {
+     list = [];
+   }
 
    //onclick fc fires when we hit subit
    //grab the val from the submit
-   var city=$("#city-input").val()
-   console.log("City: "+city);
+    $("#add-city").on("click", function(event) {
+        event.preventDefault();
 
-   //now call the fx displaycityinfo passing the city
-  // displayCityInfo(city);
-   //
+    var city=$("#city-input").val();
+    console.log("City: "+ city);
+
+   //now call the fx displaycityinfo passing the city 5day forcast
+   //this works turn on before submitting hwk
+    //displayCityInfo(city);
+
+    //fx to store city input into local storage, then get localstorage
+    //and display the local storage data to a btn
+    historybtn(city)
+    
+
+    //fx to display the 1 day forcast
+
+    });
+
+    //fx to get data from local storage to create btns on the page
+    function generatebtn() 
+    {
+
+    $("#buttons-views").empty(); // empties out the html
+        //we have no data in localstorage yet, will use dummy data to test fx
+     var insideList = JSON.parse(localStorage.getItem("cities"));
+     //var insideList= ["Austin", "Denver"];
+
+      // Checks to see if we have any todos in localStorage
+      // If we do, set the local insideList variable to our todos
+      // Otherwise set the local insideList variable to an empty array
+      if (!Array.isArray(insideList)) {
+        insideList = [];
+      }
+
+      console.log(insideList);
+      // render our insideList todos to the page
+      for (var i = 0; i < insideList.length; i++) {
+
+        var b = $("<button class='city'>").text(insideList[i]).attr("data-city", insideList[i]);
+        //<button class="city"></button>
+        //<button class="city">Austin</button>
+        //<button class="city" data-city="Austin">Austin</button>
+        
+
+        //append = inside buttons-view loc area we stick the button.
+  
+        $("#buttons-view").prepend(b);
+        //<button class="city" data-city="Austin">Austin</button>
+      }
+    }
+
+
+    
+   //fx which takes input, pushes to array then sets the array into  local storage
+   function historybtn(city){
+       console.log("historybtn fx"+ city);
+       //grab current city and add it to the cities array
+        list.push(city);
+        //sets the array into local storage
+        localStorage.setItem("cities", JSON.stringify(list));
+        console.log(" List Array: "+list)
+        //renders the btn
+        generatebtn();
+       
+
+   }
 
 
    function displayCityInfo(city) {
@@ -132,3 +199,4 @@
  }
 
  //displayCityInfo(); 
+  generatebtn();
