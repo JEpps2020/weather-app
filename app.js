@@ -1,6 +1,5 @@
    // Initial array of cities
-//    var cities = ["Austin", "Chicago", "New York", "Orlando", "San Francisco", "Seattle", "Denver", "Atlanta"];
-
+   //get data from local stprage 
    var list = JSON.parse(localStorage.getItem("cities"));
 
    //if list is not in local storage, list is set to an empty array
@@ -18,16 +17,102 @@
 
    //now call the fx displaycityinfo passing the city 5day forcast
    //this works turn on before submitting hwk
-    //displayCityInfo(city);
+    displayCityInfo(city);
 
     //fx to store city input into local storage, then get localstorage
     //and display the local storage data to a btn
     historybtn(city)
+    oneday(city);
     
 
-    //fx to display the 1 day forcast
 
+    
+    
     });
+
+//what you will need is an onclick function to triggervar curr= $(".city").text()
+    //call the 1day fx and call the 5day fx 
+    // //fx to display the 1 day forcast
+    function oneday(city){
+      //create url
+       var queryURL = "http://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=20cee50ad515784c48e915ac5ce70b1a";
+    console.log(queryURL)
+
+    //2. call ajax
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response) {
+      console.log(response)
+
+      
+      //citname
+      var cityName=response.name
+      console.log(cityName)
+      //date
+      //will need to call momentjs for current date(day planner code)
+      //temp need to convert to F
+      var cityTemp=response.main.temp
+      console.log(cityTemp) 
+      
+      //humidity
+      var cityHumidity=response.main.humidity
+      console.log(cityHumidity)
+      //windspeed
+      var cityWind=response.wind.speed
+      console.log(cityWind)
+      //uv we have to grab the lon and lat and call another ajax request for uvvis
+      var lon=response.coord.lon
+      console.log("lon" +lon);
+      var lat=response.coord.lat;
+      console.log("lat"+ lat);
+
+      // <div class="oneday">
+      var cityDiv1 = $("<div>");
+      // <div></div>
+      cityDiv1.attr("class","oneday");
+      // <div class="oneday"></div>
+
+      var p1=$("<p>");
+      //<p></p>
+      p1.text("City:" + cityName);
+
+      var p2=$("<p>");
+      //<p></p>
+      p2.text("Humidty:" + cityHumidity);
+
+      var p3=$("<p>");
+      //<p></p>
+      p3.text("Windspeed:" + cityWind);
+
+      var p4=$("<p>");
+      //<p></p>
+      p4.text("Temp:" + cityTemp);
+      // <p>City: Austin</p>
+      //   <p>City: Austin</p>
+      //   <p>windspeed: 77</p>
+      // </div>]]
+      cityDiv1.append(p1);
+      cityDiv1.append(p2);
+      // <div class="oneday"
+      // <p>City: Austin</p>
+      //></div>
+
+      //citydiv1 needs to live in html
+      $("#1day-view").append(cityDiv1)
+
+
+   
+ 
+  });
+
+    //3.get the specific data for 1 day forcast
+    
+ 
+
+    }
+   
+
 
     //fx to get data from local storage to create btns on the page
     function generatebtn() 
@@ -78,7 +163,7 @@
 
    }
 
-
+//5day forcast
    function displayCityInfo(city) {
 
      //var city = $(this).attr("data-name");  //Austin need to update later
@@ -95,9 +180,7 @@
        method: "GET"
      }).then(function(response) {
        //console.log(response)
-       for(var i=0; i<5;i++){
-
-       
+       for(var i=0; i<5;i++){       
            
          var cityDiv = $("<div>");
          //<div></div>
@@ -199,4 +282,5 @@
  }
 
  //displayCityInfo(); 
-  generatebtn();
+
+ generatebtn();
