@@ -135,7 +135,7 @@
       }
 
       console.log(insideList);
-      // render our insideList city weathder to the page
+      // render our insideList city weather to the page
       for (var i = 0; i < insideList.length; i++) {
 
         var b = $("<button class='city'>").text(insideList[i]).attr("data-city", insideList[i]);
@@ -175,7 +175,6 @@
      //this is a temp value/ placeholder for city until we have the buttons working
      
 
-     ///var queryURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy";
      var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q="+ city +"&appid=20cee50ad515784c48e915ac5ce70b1a";
      console.log(queryURL)
      
