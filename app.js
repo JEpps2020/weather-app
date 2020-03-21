@@ -30,7 +30,7 @@
     
     });
 
-//what you will need is an onclick function to triggervar curr= $(".city").text()
+//Need onclick function to trigger prepended city buttons to display date var curr= $(".city").text()
     //call the 1day fx and call the 5day fx 
     // //fx to display the 1 day forcast
     function oneday(city){
@@ -53,6 +53,7 @@
       //will need to call momentjs for current date(day planner code)
       //temp need to convert to F
       var cityTemp=response.main.temp
+      
       console.log(cityTemp) 
       
       //humidity
@@ -79,21 +80,24 @@
 
       var p2=$("<p>");
       //<p></p>
-      p2.text("Humidty:" + cityHumidity);
+      p2.text("Humidty:" + cityHumidity + "%");
 
       var p3=$("<p>");
       //<p></p>
-      p3.text("Windspeed:" + cityWind);
+      p3.text("Windspeed:" + cityWind + "mph");
 
       var p4=$("<p>");
+      
       //<p></p>
-      p4.text("Temp:" + cityTemp);
+      p4.text("Temp:" + cityTemp + "K");
       // <p>City: Austin</p>
       //   <p>City: Austin</p>
       //   <p>windspeed: 77</p>
       // </div>]]
       cityDiv1.append(p1);
       cityDiv1.append(p2);
+      cityDiv1.append(p3)
+      cityDiv1.append(p4)
       // <div class="oneday"
       // <p>City: Austin</p>
       //></div>
@@ -123,7 +127,7 @@
      var insideList = JSON.parse(localStorage.getItem("cities"));
      //var insideList= ["Austin", "Denver"];
 
-      // Checks to see if we have any todos in localStorage
+      // Checks to see if we have any items in localStorage
       // If we do, set the local insideList variable to our todos
       // Otherwise set the local insideList variable to an empty array
       if (!Array.isArray(insideList)) {
@@ -131,7 +135,7 @@
       }
 
       console.log(insideList);
-      // render our insideList todos to the page
+      // render our insideList city weathder to the page
       for (var i = 0; i < insideList.length; i++) {
 
         var b = $("<button class='city'>").text(insideList[i]).attr("data-city", insideList[i]);
@@ -222,7 +226,7 @@
          var pThree=$("<p>");
          //<p></p>        
          
-         pThree.text("Temperature: "+ temp);
+         pThree.text("Temperature: "+ tempinF + "F");
          //<p>"Temperature: temp"</p>   
 
          cityDiv.append(pThree); 
@@ -237,7 +241,7 @@
          var pFour=$("<p>");     
          //<p></p>   
          
-         pFour.text("humidity: "+ humidity);
+         pFour.text("humidity: "+ humidity + "%");
          //<p>"Humidity: humidty"</p>
 
          cityDiv.append(pFour);
